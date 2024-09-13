@@ -1,4 +1,4 @@
-package domain.entities;
+package com.example.Business.domain.entities;
 
 import java.util.List;
 import jakarta.persistence.*;
@@ -31,7 +31,7 @@ public class Employee {
     private Department department;
 
     @ManyToOne
-    @JoinColumn(name = "department_id")
+    @JoinColumn(name = "employee_id")
     private Employee manager;
 
     @ManyToMany

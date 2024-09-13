@@ -1,4 +1,4 @@
-package domain.entities;
+package com.example.Business.domain.entities;
 
 import java.util.List;
 import jakarta.persistence.*;
