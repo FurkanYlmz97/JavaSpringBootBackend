@@ -16,15 +16,7 @@ import lombok.NoArgsConstructor;
 public class Department {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private Double maxSalary;
-
-    @OneToMany
-    private List<Employee> employees;
-
-    @OneToMany
-    private List<Project> projects;
-
 }

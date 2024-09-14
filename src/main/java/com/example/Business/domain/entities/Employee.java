@@ -20,27 +20,20 @@ public class Employee {
     private long id;
 
     private String name;
+
+    @Column(unique=true)
     private String email;
+
     private String position;
     private Double salary;
     private Integer yearsOfExperience;
     private Integer performanceRating;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "department_id")
     private Department department;
 
-    @ManyToOne
-    @JoinColumn(name = "employee_id")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "manager_id")
     private Employee manager;
-
-    @ManyToMany
-    @JoinTable(
-            name = "employee_projects", // Join table name
-            joinColumns = @JoinColumn(name = "employee_id"), // Column for the employee
-            inverseJoinColumns = @JoinColumn(name = "project_id") // Column for the project
-    )
-    private List<Project> projects;
-
-
 }

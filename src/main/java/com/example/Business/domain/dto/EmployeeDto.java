@@ -2,7 +2,7 @@ package com.example.Business.domain.dto;
 
 import com.example.Business.domain.entities.Department;
 import com.example.Business.domain.entities.Employee;
-import com.example.Business.domain.entities.Project;
+//import com.example.Business.domain.entities.Project;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
@@ -24,10 +24,7 @@ public class EmployeeDto {
     private String name;
     private String email;
     private String position;
-    private Double salary;
     private Integer yearsOfExperience;
-    private Integer performanceRating;
     private Department department;
     private Employee manager;
-    private List<Project> projects;
 }

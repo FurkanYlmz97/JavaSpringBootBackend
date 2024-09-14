@@ -1,7 +1,7 @@
 package com.example.Business.domain.dto;
 
 import com.example.Business.domain.entities.Employee;
-import com.example.Business.domain.entities.Project;
+//import com.example.Business.domain.entities.Project;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -22,6 +22,4 @@ public class DepartmentDto {
     private Long id;
     private String name;
     private Double maxSalary;
-    private List<Employee> employees;
-    private List<Project> projects;
 }
