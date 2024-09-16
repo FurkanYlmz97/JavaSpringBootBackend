@@ -1,7 +1,6 @@
 version: '3.8'
 
 services:
-
   db:
     image: postgres:15
     container_name: business_postgres
@@ -13,19 +12,6 @@ services:
       POSTGRES_DB: businessdatabase
     volumes:
       - pgdata:/var/lib/postgresql/data
-
-  api:
-    build:
-      context: .
-    container_name: business_api
-    ports:
-      - "8080:8080"
-    environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/businessdatabase
-      - SPRING_DATASOURCE_USERNAME=user
-      - SPRING_DATASOURCE_PASSWORD=1234
-    depends_on:
-      - db
 
 volumes:
   pgdata:
