@@ -101,7 +101,7 @@ public class DepartmentController {
         }
     }
 
-    @PatchMapping("/department/{id}/increase-max-salary")
+    @PatchMapping("/department/{id}/max-salary")
     public ResponseEntity<Object> increaseMaxSalary(@PathVariable Long id, @RequestParam Double increase) {
 
         if (!departmentService.isExists(id)) {

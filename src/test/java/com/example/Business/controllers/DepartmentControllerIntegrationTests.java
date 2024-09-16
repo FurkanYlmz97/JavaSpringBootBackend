@@ -219,7 +219,7 @@ public class DepartmentControllerIntegrationTests {
         Department savedDepartment = departmentService.save(department);
 
         mockMvc.perform(
-                MockMvcRequestBuilders.patch("/department/" + savedDepartment.getId() + "/increase-max-salary")
+                MockMvcRequestBuilders.patch("/department/" + savedDepartment.getId() + "/max-salary")
                         .param("increase", "100") // Use param to send the increase value
         ).andExpect(MockMvcResultMatchers.status().isOk());
     }
@@ -230,7 +230,7 @@ public class DepartmentControllerIntegrationTests {
         Department savedDepartment = departmentService.save(department);
 
         mockMvc.perform(
-                MockMvcRequestBuilders.patch("/department/" + savedDepartment.getId() + "/increase-max-salary")
+                MockMvcRequestBuilders.patch("/department/" + savedDepartment.getId() + "/max-salary")
                         .param("increase", "100") // Use param to send the increase value
         ).andExpect(
                 MockMvcResultMatchers.jsonPath("$.id").value(savedDepartment.getId())
