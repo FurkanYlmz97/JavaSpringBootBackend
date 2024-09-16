@@ -3,26 +3,18 @@ package com.example.Business.services;
 import com.example.Business.TestDataUtil;
 import com.example.Business.domain.entities.Department;
 import com.example.Business.domain.entities.Employee;
-import com.example.Business.repositories.EmployeeRepository;
-import com.example.Business.services.impl.EmployeeServiceImpl;
-import org.junit.jupiter.api.BeforeEach;
+import com.example.Business.repositories.DepartmentRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
 
 
 @SpringBootTest
@@ -31,6 +23,8 @@ import static org.mockito.Mockito.*;
 public class EmployeeServiceIntegrationTest {
 
     private final EmployeeService undertest;
+    @Autowired
+    private DepartmentRepository departmentRepository;
 
     @Autowired
     public EmployeeServiceIntegrationTest(EmployeeService undertest) {
@@ -42,6 +36,23 @@ public class EmployeeServiceIntegrationTest {
         Employee employee = TestDataUtil.createManager();
         Employee savedEmployee = undertest.save(employee);
         Optional<Employee> retrievedEmployee = undertest.findOne(savedEmployee.getId());
+
+        assertTrue(retrievedEmployee.isPresent());
+        assertEquals(savedEmployee, retrievedEmployee.get());
+    }
+
+    @Test
+    void testThatManagerAndEmployeeSaveAndReturn() {
+        Employee manager = TestDataUtil.createManager();
+        Employee savedManager = undertest.save(manager);
+        Optional<Employee> retrievedManager = undertest.findOne(savedManager.getId());
+
+        Employee employee = TestDataUtil.createEmployeeClara(savedManager, retrievedManager.get().getDepartment());
+        Employee savedEmployee = undertest.save(employee);
+        Optional<Employee> retrievedEmployee = undertest.findOne(savedEmployee.getId());
+
+        assertTrue(retrievedManager.isPresent());
+        assertEquals(savedManager, retrievedManager.get());
 
         assertTrue(retrievedEmployee.isPresent());
         assertEquals(savedEmployee, retrievedEmployee.get());
@@ -65,7 +76,7 @@ public class EmployeeServiceIntegrationTest {
         Employee savedManager = undertest.save(manager);
         Optional<Employee> retrievedManager = undertest.findOne(savedManager.getId());
 
-        Employee employee = TestDataUtil.createEmployeeEntityA(savedManager, savedManager.getDepartment());
+        Employee employee = TestDataUtil.createEmployeeClara(savedManager, savedManager.getDepartment());
         Employee savedEmployee = undertest.save(employee);
         Optional<Employee> retrievedEmployee = undertest.findOne(savedEmployee.getId());
 
@@ -114,11 +125,23 @@ public class EmployeeServiceIntegrationTest {
 
         assertEquals(department, retrievedManager.get().getDepartment());
 
-        savedManager.setDepartment(hrDepartment);
-        undertest.save(savedManager);
+        Department savedDepartment = departmentRepository.save(hrDepartment);
+        undertest.assignToDepartment(savedManager.getId(), savedDepartment.getId());
+
         retrievedManager = undertest.findOne(savedManager.getId());
 
         assertNotEquals(department, retrievedManager.get().getDepartment());
         assertEquals(hrDepartment, retrievedManager.get().getDepartment());
+    }
+
+    @Test
+    void testAddExperience() {
+        Employee manager = TestDataUtil.createManager();
+        Employee savedManager = undertest.save(manager);
+        Optional<Employee> retrievedManager = undertest.findOne(savedManager.getId());
+
+        savedManager = undertest.addExperience(savedManager.getId(), 1);
+
+        assertEquals(savedManager.getYearsOfExperience(), retrievedManager.get().getYearsOfExperience() + 1);
     }
 }

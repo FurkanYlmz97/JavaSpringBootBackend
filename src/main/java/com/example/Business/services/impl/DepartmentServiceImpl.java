@@ -6,6 +6,7 @@ import com.example.Business.repositories.DepartmentRepository;
 import com.example.Business.repositories.EmployeeRepository;
 import com.example.Business.services.DepartmentService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -35,7 +36,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
         if (department != null) {
             return StreamSupport.stream(employeeRepository
-                                    .findAllByDepartment(department)
+                                    .findAllByDepartmentId(id)
                                     .spliterator(),
                             false)
                     .collect(Collectors.toList());
@@ -59,13 +60,17 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
+    public boolean isExists(String name) {
+        return departmentRepository.existsByName(name);
+    }
+
+    @Override
     public boolean isExists(Long id) {
         return departmentRepository.existsById(id);
     }
 
-
-
     @Override
+    @Transactional
     public boolean delete(Long id) {
 
         Optional<Department> department = departmentRepository.findById(id);
@@ -85,6 +90,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
+    @Transactional
     public Department increaseMaxSalary(Long id, Double increase) {
 
         Optional<Department> department = departmentRepository.findById(id);

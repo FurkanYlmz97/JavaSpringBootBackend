@@ -20,15 +20,18 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class EmployeeRepositoryIntegrationTests {
 
     private EmployeeRepository underTest;
+    private DepartmentRepository departmentRepository;
 
     @Autowired
-    public EmployeeRepositoryIntegrationTests(EmployeeRepository underTest) {
+    public EmployeeRepositoryIntegrationTests(EmployeeRepository underTest, DepartmentRepository departmentRepository) {
         this.underTest = underTest;
+        this.departmentRepository = departmentRepository;
     }
 
     @Test
     public void testThatManagerCanBeCreatedAndRecalled() {
         Employee managerEntity = TestDataUtil.createManager();
+        departmentRepository.save(managerEntity.getDepartment());
         underTest.save(managerEntity);
         Optional<Employee> result = underTest.findById(managerEntity.getId());
         assertThat(result).isPresent();
@@ -38,9 +41,11 @@ public class EmployeeRepositoryIntegrationTests {
     @Test
     public void testThatEmployeeCanBeCreatedAndRecalled() {
         Employee managerEntity = TestDataUtil.createManager();
+        departmentRepository.save(managerEntity.getDepartment());
         underTest.save(managerEntity);
 
-        Employee employeeEntity = TestDataUtil.createEmployeeEntityA(managerEntity, managerEntity.getDepartment());
+        Employee employeeEntity = TestDataUtil.createEmployeeClara(managerEntity, managerEntity.getDepartment());
+        departmentRepository.save(employeeEntity.getDepartment());
         underTest.save(employeeEntity);
 
         Optional<Employee> result = underTest.findById(employeeEntity.getId());
@@ -54,6 +59,7 @@ public class EmployeeRepositoryIntegrationTests {
     @Test
     public void testThatManagerCanBeUpdated() {
         Employee managerEntity = TestDataUtil.createManager();
+        departmentRepository.save(managerEntity.getDepartment());
         underTest.save(managerEntity);
         managerEntity.setSalary(5000.0);
         underTest.save(managerEntity);

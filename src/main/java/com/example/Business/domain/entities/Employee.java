@@ -1,6 +1,8 @@
 package com.example.Business.domain.entities;
 
 import java.util.List;
+import java.util.Objects;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,11 +31,25 @@ public class Employee {
     private Integer yearsOfExperience;
     private Integer performanceRating;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "department_id")
     private Department department;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "manager_id")
     private Employee manager;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Employee employee = (Employee) o;
+        return Objects.equals(email, employee.email);
+    }
+
+    @Override
+    public int hashCode() {
+        // Combine hash codes of the fields used in equals
+        return Objects.hash(email);
+    }
 }

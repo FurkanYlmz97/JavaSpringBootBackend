@@ -10,7 +10,7 @@ public interface EmployeeService {
 
     Employee save(Employee employee);
 
-    List<Employee> findAllByDepartment(Department department);
+    List<Employee> findAllByDepartmentId(Long departmentId);
 
     List<Employee> findAll();
 
@@ -18,9 +18,13 @@ public interface EmployeeService {
 
     boolean isExists(Long id);
 
+    boolean isExists(String email);
+
     boolean delete(Long id);
 
     Employee promote(Long id, Double promotion);
 
-    void assignToDepartment(Long id, Department department);
+    Employee addExperience(Long id, Integer year);
+
+    Employee assignToDepartment(Long id, Long departmentId);
 }

@@ -17,6 +17,8 @@ public interface DepartmentService {
 
     Optional<Department> findOne(Long id);
 
+    boolean isExists(String name);
+
     boolean isExists(Long id);
 
     boolean delete(Long id);

@@ -11,7 +11,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -47,7 +46,7 @@ public class DepartmentServiceIntegrationTest {
         Employee manager = TestDataUtil.createManager();
         Employee savedManager = employeeService.save(manager);
 
-        Employee employee = TestDataUtil.createEmployeeEntityA(savedManager, savedManager.getDepartment());
+        Employee employee = TestDataUtil.createEmployeeClara(savedManager, savedManager.getDepartment());
         Employee savedEmployee = employeeService.save(manager);
 
         assertTrue(undertest.delete(savedEmployee.getDepartment().getId()));

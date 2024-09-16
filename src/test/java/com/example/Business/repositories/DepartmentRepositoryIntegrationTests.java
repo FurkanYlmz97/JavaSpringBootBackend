@@ -30,11 +30,21 @@ public class DepartmentRepositoryIntegrationTests {
     @Test
     public void testThatDepartmentCanBeCreatedAndRecalled() {
         Department departmentEntity = TestDataUtil.createDepartmentIT();
-        underTest.save(departmentEntity);
+        Department savedDepartmentEntity1 = underTest.save(departmentEntity);
 
         Optional<Department> result = underTest.findById(departmentEntity.getId());
         assertThat(result).isPresent();
         assertThat(result.get()).isEqualTo(departmentEntity);
+
+        departmentEntity = TestDataUtil.createDepartmentIT();
+        Department savedDepartmentEntity2 = underTest.save(departmentEntity);
+
+        result = underTest.findById(departmentEntity.getId());
+        assertThat(result).isPresent();
+        assertThat(result.get()).isEqualTo(departmentEntity);
+
+        assertThat(savedDepartmentEntity1).isEqualTo(savedDepartmentEntity2);
+
     }
 
     @Test

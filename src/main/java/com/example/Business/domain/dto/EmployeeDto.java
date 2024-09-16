@@ -27,4 +27,5 @@ public class EmployeeDto {
     private Integer yearsOfExperience;
     private Department department;
     private Employee manager;
+    private Double salary;
 }

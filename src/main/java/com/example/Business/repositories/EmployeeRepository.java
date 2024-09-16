@@ -11,8 +11,9 @@ import java.util.List;
 @Repository
 public interface EmployeeRepository extends CrudRepository<Employee, Long> {
 
-    List<Employee> findAllByDepartment(Department department);
+    List<Employee> findAllByDepartmentId(Long departmentId);
 
     List<Employee> findAllByManager(Employee manager);
 
+    boolean existsByEmail(String email);
 }
