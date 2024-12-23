@@ -2,7 +2,9 @@
 
 Welcome to the Business API! This API allows you to manage departments and employees within an organization.
 
-To explore and interact with the API, after building and running the containers, you can use the Swagger UI, which provides a user-friendly interface for testing the API endpoints. To access the Swagger UI, open a web browser and navigate to the following URL: [Swagger UI](/swagger-ui/index.html#/).
+To explore and interact with the API, after building and running the containers inside this repo, go to repo VueFrontend and run the containers there with docker-compose as well.
+
+You can also use the Swagger UI, which provides a user-friendly interface for testing the API endpoints. To access the Swagger UI, open a web browser and navigate to the following URL: [Swagger UI](http://localhost:8080/swagger-ui/index.html#/).
 
 ## API Endpoints
 
